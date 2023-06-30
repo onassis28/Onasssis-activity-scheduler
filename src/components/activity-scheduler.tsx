@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { nanoid } from 'nanoid'
 enum ActivitiesEnum {
   mowing = 'mowing',
   fertilisation = 'fertilisation',
@@ -12,30 +13,51 @@ enum PitchEnum {
   pitch3 = 'pitch3',
 }
 
-interface IFormInput {
+export interface IFormInput {
   performerName: string
   activities: ActivitiesEnum
   pitch: PitchEnum
   date: Date
   time: string
 }
-
-const ActivityScheduler = () => {
+interface ActivitySchedulerProps {
+  setters: (prev: IFormInput[]) => IFormInput[]
+  setterActive: React.Dispatch<React.SetStateAction<boolean>>
+  defaultValues?: IFormInput
+  setterEdit?: React.Dispatch<React.SetStateAction<IFormInput | null>>
+}
+const ActivityScheduler = ({
+  setters,
+  setterEdit,
+  setterActive,
+  defaultValues,
+}: ActivitySchedulerProps) => {
+  const ids = nanoid()
   const { register, handleSubmit } = useForm<IFormInput>({
-    defaultValues: {
-      performerName: '',
-      activities: ActivitiesEnum.mowing,
-      pitch: PitchEnum.pitch1,
-      date: new Date(),
-      time: '00:00',
-    },
+    defaultValues: defaultValues,
   })
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
-
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    setters((prev: IFormInput[]): IFormInput[] => {
+      const newData = { ...data, id: ids }
+      return [...prev, newData]
+    })
+    setterActive(false)
+  }
+  const onSubmit2: SubmitHandler<IFormInput> = (data) => {
+    setters((prev: IFormInput[]): IFormInput[] => {
+      const newData = [...prev].filter((item) => item.id !== data.id)
+      const newData2 = [...newData, data]
+      return newData2
+    })
+    console.log(data)
+    setterActive(false)
+    setterEdit(null)
+  }
+  const whichSubmit = defaultValues ? onSubmit2 : onSubmit
   return (
     <form
       className="flex p-8 flex-col max-w-[40%] space-y-4 bg-gray-100 rounded-lg shadow-md"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(whichSubmit)}
     >
       <label className="text-lg font-medium">Performer</label>
       <input
@@ -43,6 +65,7 @@ const ActivityScheduler = () => {
         type="text"
         placeholder="User Name"
         {...register('performerName')}
+        required
       />
 
       <label className="text-lg font-medium">Date</label>
@@ -50,6 +73,7 @@ const ActivityScheduler = () => {
         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         type="date"
         {...register('date')}
+        required
       />
 
       <label className="text-lg font-medium">Time</label>
@@ -80,11 +104,20 @@ const ActivityScheduler = () => {
         <option value="Pitch 3">Pitch 3</option>
       </select>
 
-      <input
-        className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
-        type="submit"
-        value="Add Activity"
-      />
+      {defaultValues ? (
+        <input
+          className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
+          type="submit"
+          value="Edit Activity"
+          re
+        />
+      ) : (
+        <input
+          className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
+          type="submit"
+          value="Add Activity"
+        />
+      )}
     </form>
   )
 }
