@@ -49,76 +49,86 @@ const ActivityScheduler = ({
       const newData2 = [...newData, data]
       return newData2
     })
-    console.log(data)
+
     setterActive(false)
     setterEdit(null)
   }
   const whichSubmit = defaultValues ? onSubmit2 : onSubmit
   return (
-    <form
-      className="flex p-8 flex-col max-w-[40%] space-y-4 bg-gray-100 rounded-lg shadow-md"
-      onSubmit={handleSubmit(whichSubmit)}
-    >
-      <label className="text-lg font-medium">Performer</label>
-      <input
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="text"
-        placeholder="User Name"
-        {...register('performerName')}
-        required
-      />
-
-      <label className="text-lg font-medium">Date</label>
-      <input
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="date"
-        {...register('date')}
-        required
-      />
-
-      <label className="text-lg font-medium">Time</label>
-      <input
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        type="time"
-        {...register('time')}
-      />
-
-      <label className="text-lg font-medium">Activity Selection</label>
-      <select
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        {...register('activities')}
+    <div className="flex flex-row justify-center  mt-10 items-center">
+      <form
+        className="flex p-8 md:w-[40%] w-full  flex-col space-y-4 bg-gray-100 rounded-lg shadow-md"
+        onSubmit={handleSubmit(whichSubmit)}
       >
-        <option value="Mowing">Mowing</option>
-        <option value="Fertilisation">Fertilisation</option>
-        <option value="Irrigation">Irrigation</option>
-        <option value="Aeration">Aeration</option>
-      </select>
-
-      <label className="text-lg font-medium">Pitch Selection</label>
-      <select
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        {...register('pitch')}
-      >
-        <option value="Pitch 1">Pitch 1</option>
-        <option value="Pitch 2">Pitch 2</option>
-        <option value="Pitch 3">Pitch 3</option>
-      </select>
-
-      {defaultValues ? (
+        <label className="text-lg font-medium">Performer</label>
         <input
-          className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
-          type="submit"
-          value="Edit Activity"
-          re
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="text"
+          placeholder="User Name"
+          {...register('performerName')}
+          required
         />
-      ) : (
+
+        <label className="text-lg font-medium">Date</label>
         <input
-          className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
-          type="submit"
-          value="Add Activity"
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="date"
+          {...register('date')}
+          required
         />
-      )}
-    </form>
+
+        <label className="text-lg font-medium">Time</label>
+        <input
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="time"
+          {...register('time')}
+          required
+        />
+
+        <label className="text-lg font-medium">Activity Selection</label>
+        <select
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {...register('activities')}
+        >
+          <option value="Mowing">Mowing</option>
+          <option value="Fertilisation">Fertilisation</option>
+          <option value="Irrigation">Irrigation</option>
+          <option value="Aeration">Aeration</option>
+        </select>
+
+        <label className="text-lg font-medium">Pitch Selection</label>
+        <select
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {...register('pitch')}
+        >
+          <option value="Pitch 1">Pitch 1</option>
+          <option value="Pitch 2">Pitch 2</option>
+          <option value="Pitch 3">Pitch 3</option>
+        </select>
+
+        {defaultValues ? (
+          <input
+            className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
+            type="submit"
+            value="Edit Activity"
+          />
+        ) : (
+          <input
+            className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
+            type="submit"
+            value="Add Activity"
+          />
+        )}
+        <button
+          className="px-4 py-2 font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-600"
+          onClick={() => {
+            setterActive(false)
+          }}
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
   )
 }
 
