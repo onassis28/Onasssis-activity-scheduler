@@ -4,12 +4,15 @@ import NoSearch from './no-search'
 
 const WeatherDashboard = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
-  const [location2, setLocation2] = useState<string>('')
+  const [location2, setLocation2] = useState<string>('Berlin')
   const [search, setSearch] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
 
-  if (!search)
+  if (!search || error)
     return (
       <NoSearch
+        error={error}
+        setError={setError}
         setSearch={setSearch}
         setWeatherData={setWeatherData}
         location2={location2}
@@ -17,11 +20,15 @@ const WeatherDashboard = () => {
       />
     )
   if (!weatherData) {
-    return <div>Loading...</div>
+    return (
+      <div className="bg-gray-200 mt-8 w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
+        Loading...
+      </div>
+    )
   }
 
   return (
-    <div className="bg-gray-200 mt-8 w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
+    <div className="bg-gray-200 mt-8  w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
       <h2 className="mb-4 text-4xl font-semibold">{weatherData.name}</h2>
       <div className="flex items-center">
         <img

@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, set } from 'react-hook-form'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import SubmitButtons from './submit-buttons'
@@ -21,16 +21,18 @@ export enum PitchEnum {
 }
 
 interface ActivitySchedulerProps {
-  setters: (prev: FormInput[]) => FormInput[] | void
+  setters: React.Dispatch<React.SetStateAction<FormInputWithId[]>>
   setterActive: React.Dispatch<React.SetStateAction<boolean>>
   defaultValues?: FormInputWithId
   setterEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
+  activities: FormInputWithId[]
 }
 const ActivityScheduler = ({
   setters,
   setterEdit,
   setterActive,
   defaultValues,
+  activities,
 }: ActivitySchedulerProps) => {
   const [error, setError] = useState<boolean>(false)
   const ids = nanoid()
@@ -38,34 +40,39 @@ const ActivityScheduler = ({
     defaultValues: defaultValues,
   })
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    let cast = false
-    setters((prev) => {
-      const casst = prev.find(
-        (item) => item.pitch === data.pitch && item.date === data.date && item.time === data.time,
-      )
-      cast = casst ? true : false
-      if (casst) {
-        setError(true)
-        return prev
-      }
-      const newData = { ...data, id: ids }
-      return [...prev, newData]
-    })
-    // if (!cast) {
-    //   setterActive(false)
-    // }
+    const isActivity = activities.find(
+      (item) => item.pitch === data.pitch && item.date === data.date && item.time === data.time,
+    )
+    if (isActivity) {
+      setError(true)
+    } else {
+      setters((prev) => {
+        const newData = { ...data, id: ids }
+        return [...prev, newData]
+      })
+      setterActive(false)
+      setError(false)
+    }
   }
   const onSubmit2: SubmitHandler<FormInputWithId> = (data) => {
-    setters((prev) => {
-      const newData = [...prev].filter((item) => item.id !== data.id)
-      const newData2 = [...newData, data]
-      return newData2
-    })
+    const isActivity = activities.find(
+      (item) => item.pitch === data.pitch && item.date === data.date && item.time === data.time,
+    )
+    if (isActivity) {
+      setError(true)
+    } else {
+      setters((prev) => {
+        const newData = [...prev].filter((item) => item.id !== data.id)
+        const newData2 = [...newData, data]
+        return newData2
+      })
 
-    setterActive(false)
-    setterEdit(null)
+      setterActive(false)
+      setterEdit(null)
+      setError(false)
+    }
   }
-  const whichSubmit = defaultValues ? onSubmit2 : onSubmit
+  const whichSubmit: any = defaultValues ? onSubmit2 : onSubmit
   return (
     <form
       className="flex p-8 md:w-[60%] w-full mt-8 ml-8  flex-col space-y-4 bg-gray-100 rounded-2xl shadow-md"
@@ -103,7 +110,13 @@ const ActivityScheduler = ({
           </option>
         ))}
       </select>
-      <SubmitButtons defaultValues={defaultValues} setterActive={setterActive} error={error} />
+      <SubmitButtons
+        defaultValues={defaultValues}
+        setterEdit={setterEdit}
+        setterActive={setterActive}
+        error={error}
+        setterError={setError}
+      />
     </form>
   )
 }

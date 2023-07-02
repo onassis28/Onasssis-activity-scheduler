@@ -38,7 +38,7 @@ const DisplayActivities = ({
       {activities.length === 0 ? (
         <div className="m-3 text-3xl font-medium bg-white">No activities scheduled</div>
       ) : (
-        activityList
+        <div className="max-h-[30rem] p-5 overflow-scroll">{activityList}</div>
       )}
       <button
         className="px-4 py-2 mt-8 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"

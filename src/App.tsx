@@ -10,7 +10,6 @@ function App() {
   const [activities, setActivities] = useState<FormInputWithId[]>([])
   const [active, setActive] = useState<boolean>(false)
   const [edit, setEdit] = useState<FormInputWithId | null>(null)
-  console.log(edit)
   return (
     <div className="bg-[url('./assets/pitch2.jpeg')]  m-0 w-screen h-screen">
       <div className="p-8 text-5xl font-bold text-center bg-white ">
@@ -23,6 +22,7 @@ function App() {
             setterEdit={setEdit}
             setterActive={setActive}
             setters={setActivities}
+            activities={activities ?? []}
           />
         ) : (
           <DisplayActivities

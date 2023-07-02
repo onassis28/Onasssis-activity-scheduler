@@ -1,12 +1,21 @@
 import { FormInput } from '../../interfaces'
+import { FormInputWithId } from '../display-activities/display-activities'
 
 interface SubmitButtonsProps {
   defaultValues?: FormInput
   setterActive: React.Dispatch<React.SetStateAction<boolean>>
   error: boolean
+  setterError: React.Dispatch<React.SetStateAction<boolean>>
+  setterEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
 }
 
-const SubmitButtons = ({ defaultValues, setterActive, error }: SubmitButtonsProps) => {
+const SubmitButtons = ({
+  defaultValues,
+  setterActive,
+  error,
+  setterError,
+  setterEdit,
+}: SubmitButtonsProps) => {
   return (
     <>
       <input
@@ -21,6 +30,8 @@ const SubmitButtons = ({ defaultValues, setterActive, error }: SubmitButtonsProp
         className="px-4 py-2 font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-600"
         onClick={() => {
           setterActive(false)
+          setterError(false)
+          setterEdit(null)
         }}
       >
         Cancel
