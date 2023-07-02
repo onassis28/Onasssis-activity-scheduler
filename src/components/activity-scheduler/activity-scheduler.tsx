@@ -27,7 +27,7 @@ interface ActivitySchedulerProps {
   setterEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
   activities: FormInputWithId[]
 }
-const ActivityScheduler = ({
+export const ActivityScheduler = ({
   setters,
   setterEdit,
   setterActive,
@@ -54,7 +54,7 @@ const ActivityScheduler = ({
       setError(false)
     }
   }
-  const onSubmit2: SubmitHandler<FormInputWithId> = (data) => {
+  const onEditSubmit: SubmitHandler<FormInputWithId> = (data) => {
     const isActivity = activities.find(
       (item) => item.pitch === data.pitch && item.date === data.date && item.time === data.time,
     )
@@ -72,11 +72,11 @@ const ActivityScheduler = ({
       setError(false)
     }
   }
-  const whichSubmit: any = defaultValues ? onSubmit2 : onSubmit
+  const rightOnSubmit: any = defaultValues ? onEditSubmit : onSubmit
   return (
     <form
-      className="flex p-8 md:w-[60%] w-full mt-8 ml-8  flex-col space-y-4 bg-gray-100 rounded-2xl shadow-md"
-      onSubmit={handleSubmit(whichSubmit)}
+      className="flex p-8 lg:w-[60%] w-full  flex-col space-y-4 bg-gray-100 rounded-2xl shadow-md"
+      onSubmit={handleSubmit(rightOnSubmit)}
     >
       <label className="text-lg font-medium">Performer</label>
       <input

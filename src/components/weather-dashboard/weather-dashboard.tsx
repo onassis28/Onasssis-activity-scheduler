@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { WeatherData } from '../../interfaces'
 import NoSearch from './no-search'
 
-const WeatherDashboard = () => {
+export const WeatherDashboard = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [location2, setLocation2] = useState<string>('Berlin')
   const [search, setSearch] = useState<boolean>(false)
@@ -21,14 +21,14 @@ const WeatherDashboard = () => {
     )
   if (!weatherData) {
     return (
-      <div className="bg-gray-200 mt-8 w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
+      <div className="bg-gray-200  w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
         Loading...
       </div>
     )
   }
 
   return (
-    <div className="bg-gray-200 mt-8  w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
+    <div className="bg-gray-200  w-[20rem] flex flex-col h-[20rem]  items-center justify-center rounded-full shadow-md">
       <h2 className="mb-4 text-4xl font-semibold">{weatherData.name}</h2>
       <div className="flex items-center">
         <img

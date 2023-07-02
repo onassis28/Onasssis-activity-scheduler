@@ -24,7 +24,9 @@ const SubmitButtons = ({
         value={defaultValues ? 'Edit Activity' : 'Add Activity'}
       />
       {error && (
-        <div>Only one activity can be done at the pitch at this time, please reschedule</div>
+        <div className="font-medium text-red-500">
+          Only one activity can be done at the pitch at this time, please reschedule
+        </div>
       )}
       <button
         className="px-4 py-2 font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-600"

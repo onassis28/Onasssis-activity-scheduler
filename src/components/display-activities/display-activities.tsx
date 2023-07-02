@@ -10,7 +10,7 @@ interface DisplayActivitiesProps {
   setterActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DisplayActivities = ({
+export const DisplayActivities = ({
   activities,
   editor,
   setter,
@@ -33,12 +33,12 @@ const DisplayActivities = ({
     )
   })
   return (
-    <div className="bg-white md:ml-8 w-full md:w-[60%] rounded-2xl  p-8 mt-8">
+    <div className="bg-white w-full lg:w-[70%] rounded-2xl p-8 ">
       <h1 className="mb-8 text-3xl font-bold">Activities</h1>
       {activities.length === 0 ? (
-        <div className="m-3 text-3xl font-medium bg-white">No activities scheduled</div>
+        <div className="text-3xl font-medium bg-white">No activities scheduled</div>
       ) : (
-        <div className="max-h-[30rem] p-5 overflow-scroll">{activityList}</div>
+        <div className="max-h-[30rem] w-full lg:p-5 overflow-scroll">{activityList}</div>
       )}
       <button
         className="px-4 py-2 mt-8 font-medium text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"

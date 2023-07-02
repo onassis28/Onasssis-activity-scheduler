@@ -39,7 +39,7 @@ const NoSearch = ({
   error,
 }: NoSearchProps) => {
   return (
-    <div className="bg-gray-200 mt-8 w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
+    <div className="bg-gray-200 w-full md:w-[30%] flex flex-col h-[20rem] items-center justify-center rounded-2xl shadow-md">
       {error && <div className="mb-3 text-red-500">Location not found</div>}
       <input
         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
