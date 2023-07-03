@@ -17,7 +17,7 @@ const fetchWeatherData = async (
   try {
     setError(false)
     setSearch(true)
-    // const apiKey = 'c2b91796511a4710aa7fcf93898b6b75'
+
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY
     console.log(apiKey)
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}`
