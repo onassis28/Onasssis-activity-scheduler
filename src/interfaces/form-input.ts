@@ -7,3 +7,5 @@ export interface FormInput {
   date: Date
   time: string
 }
+
+export type FormInputWithId = FormInput & { id: string }

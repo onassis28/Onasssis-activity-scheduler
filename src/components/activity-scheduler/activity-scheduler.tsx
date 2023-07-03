@@ -1,9 +1,9 @@
-import { useForm, SubmitHandler, set } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import SubmitButtons from './submit-buttons'
-import { FormInput } from '../../interfaces'
-import { FormInputWithId } from '../display-activities/display-activities'
+import { FormInput, FormInputWithId } from '../../interfaces'
+
 export enum ActivitiesEnum {
   mowing = 'Mowing',
   fertilisation = 'Fertilisation',
@@ -21,16 +21,16 @@ export enum PitchEnum {
 }
 
 interface ActivitySchedulerProps {
-  setters: React.Dispatch<React.SetStateAction<FormInputWithId[]>>
-  setterActive: React.Dispatch<React.SetStateAction<boolean>>
+  setterActivities: React.Dispatch<React.SetStateAction<FormInputWithId[]>>
+  setterIsSchedulerActive: React.Dispatch<React.SetStateAction<boolean>>
   defaultValues?: FormInputWithId
-  setterEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
+  setterFormValuesToEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
   activities: FormInputWithId[]
 }
 export const ActivityScheduler = ({
-  setters,
-  setterEdit,
-  setterActive,
+  setterActivities,
+  setterFormValuesToEdit,
+  setterIsSchedulerActive,
   defaultValues,
   activities,
 }: ActivitySchedulerProps) => {
@@ -46,11 +46,11 @@ export const ActivityScheduler = ({
     if (isActivity) {
       setError(true)
     } else {
-      setters((prev) => {
+      setterActivities((prev) => {
         const newData = { ...data, id: ids }
         return [...prev, newData]
       })
-      setterActive(false)
+      setterIsSchedulerActive(false)
       setError(false)
     }
   }
@@ -61,14 +61,14 @@ export const ActivityScheduler = ({
     if (isActivity) {
       setError(true)
     } else {
-      setters((prev) => {
+      setterActivities((prev) => {
         const newData = [...prev].filter((item) => item.id !== data.id)
         const newData2 = [...newData, data]
         return newData2
       })
 
-      setterActive(false)
-      setterEdit(null)
+      setterIsSchedulerActive(false)
+      setterFormValuesToEdit(null)
       setError(false)
     }
   }
@@ -112,8 +112,8 @@ export const ActivityScheduler = ({
       </select>
       <SubmitButtons
         defaultValues={defaultValues}
-        setterEdit={setterEdit}
-        setterActive={setterActive}
+        setterFormValuesToEdit={setterFormValuesToEdit}
+        setterIsSchedulerActive={setterIsSchedulerActive}
         error={error}
         setterError={setError}
       />

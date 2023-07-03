@@ -3,7 +3,7 @@ import { WeatherData } from '../../interfaces'
 interface NoSearchProps {
   setSearch: React.Dispatch<React.SetStateAction<boolean>>
   setWeatherData: React.Dispatch<React.SetStateAction<WeatherData | null>>
-  location2: string
+  location: string
   setLocation2: React.Dispatch<React.SetStateAction<string>>
   error: boolean
   setError: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,13 +27,12 @@ const fetchWeatherData = async (
     setWeatherData(data)
   } catch (error) {
     setError(true)
-    console.log(error)
   }
 }
 const NoSearch = ({
   setSearch,
   setWeatherData,
-  location2,
+  location: location2,
   setLocation2,
   setError,
   error,
@@ -45,7 +44,7 @@ const NoSearch = ({
         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         type="text"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => setLocation2(event.target.value)}
-        placeholder="Insert Location "
+        placeholder="Insert Location"
         list="cities"
       />
       <button

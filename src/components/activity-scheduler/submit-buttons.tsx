@@ -1,20 +1,19 @@
-import { FormInput } from '../../interfaces'
-import { FormInputWithId } from '../display-activities/display-activities'
+import { FormInput, FormInputWithId } from '../../interfaces'
 
 interface SubmitButtonsProps {
   defaultValues?: FormInput
-  setterActive: React.Dispatch<React.SetStateAction<boolean>>
+  setterIsSchedulerActive: React.Dispatch<React.SetStateAction<boolean>>
   error: boolean
   setterError: React.Dispatch<React.SetStateAction<boolean>>
-  setterEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
+  setterFormValuesToEdit: React.Dispatch<React.SetStateAction<FormInputWithId | null>>
 }
 
 const SubmitButtons = ({
   defaultValues,
-  setterActive,
+  setterIsSchedulerActive,
   error,
   setterError,
-  setterEdit,
+  setterFormValuesToEdit,
 }: SubmitButtonsProps) => {
   return (
     <>
@@ -31,9 +30,9 @@ const SubmitButtons = ({
       <button
         className="px-4 py-2 font-medium text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-600"
         onClick={() => {
-          setterActive(false)
+          setterIsSchedulerActive(false)
           setterError(false)
-          setterEdit(null)
+          setterFormValuesToEdit(null)
         }}
       >
         Cancel

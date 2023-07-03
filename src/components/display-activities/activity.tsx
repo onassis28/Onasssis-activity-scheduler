@@ -1,8 +1,7 @@
 import { AiTwotoneEdit } from 'react-icons/ai'
 import { MdDeleteForever } from 'react-icons/md'
 
-import { FormInputWithId } from './display-activities'
-import { FormInput } from '../../interfaces'
+import { FormInput, FormInputWithId } from '../../interfaces'
 
 type ActivityProps = FormInput & {
   id: string
