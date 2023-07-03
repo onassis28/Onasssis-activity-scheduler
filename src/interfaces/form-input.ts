@@ -1,7 +1,11 @@
-import { ActivitiesEnum, PitchEnum } from '../components/activity-scheduler/activity-scheduler'
+import {
+  ActivitiesEnum,
+  PerformersEnum,
+  PitchEnum,
+} from '../components/activity-scheduler/activity-scheduler'
 
 export interface FormInput {
-  performerName: string
+  performerName: PerformersEnum
   activities: ActivitiesEnum
   pitch: PitchEnum
   date: Date

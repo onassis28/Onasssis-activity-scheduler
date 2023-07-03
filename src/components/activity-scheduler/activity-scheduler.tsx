@@ -10,15 +10,20 @@ export enum ActivitiesEnum {
   irrigation = 'Irrigation',
   aeration = 'Aeration',
 }
-
-const inputCSS =
-  'px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-
 export enum PitchEnum {
   pitch1 = 'Pitch 1',
   pitch2 = 'Pitch 2',
   pitch3 = 'Pitch 3',
 }
+
+export enum PerformersEnum {
+  Onassis = 'Onassis',
+  Aristotle = 'Aristotle',
+  Plato = 'Plato',
+}
+
+const inputCSS =
+  'px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
 interface ActivitySchedulerProps {
   setterActivities: React.Dispatch<React.SetStateAction<FormInputWithId[]>>
@@ -77,14 +82,14 @@ export const ActivityScheduler = ({
       className="flex p-8 lg:w-[60%] w-full  flex-col space-y-4 bg-gray-100 rounded-2xl shadow-md"
       onSubmit={handleSubmit(rightOnSubmit)}
     >
-      <label className="text-lg font-medium">Performer</label>
-      <input
-        className={inputCSS}
-        type="text"
-        placeholder="User Name"
-        {...register('performerName')}
-        required
-      />
+      <label className="text-lg font-medium">Activity Performer</label>
+      <select className={inputCSS} {...register('performerName')}>
+        {Object.keys(PerformersEnum).map((key) => (
+          <option key={key} value={PerformersEnum[key as keyof typeof PerformersEnum]}>
+            {PerformersEnum[key as keyof typeof PerformersEnum]}
+          </option>
+        ))}
+      </select>
 
       <label className="text-lg font-medium">Date</label>
       <input className={inputCSS} type="date" {...register('date')} required />
