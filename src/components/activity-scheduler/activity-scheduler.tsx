@@ -63,8 +63,7 @@ export const ActivityScheduler = ({
     } else {
       setterActivities((prev) => {
         const newData = [...prev].filter((item) => item.id !== data.id)
-        const newData2 = [...newData, data]
-        return newData2
+        return [...newData, data]
       })
 
       setterIsSchedulerActive(false)
